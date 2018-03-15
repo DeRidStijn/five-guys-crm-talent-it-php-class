@@ -60,7 +60,6 @@ class AuthController extends AbstractActionController
         // $this->identity
         if ($this->authService->hasIdentity()) {
             $message = "variable to pass to view";
-            $this->placeholder('foo')->set($message);
             $myVar = "some data I want to pass to my view";
             $this->view->var = "some text";
             return $this->redirect()->toRoute('auth/welcome', [
@@ -148,7 +147,6 @@ class AuthController extends AbstractActionController
         }
         $varreken = "bedoelt ge varken?";
             $message = "variable to pass to view";
-            $this->placeholder('foo')->set($message);
         return $this->redirect()->toRoute('auth/welcome', [
             'message' => 'some data I want to pass to my view',
         ]);
