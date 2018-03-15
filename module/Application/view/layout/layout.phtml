@@ -43,10 +43,18 @@
                             <li><a class="navbar-link smoothScroll" id="link-pricing" href="<?php echo $this->url('home', [], ['fragment' => 'pricing']) ?>"><?php echo $this->translate('Pricing') ?></a></li>
                             <li><a class="navbar-link smoothScroll" id="link-contact" href="<?php echo $this->url('home', [], ['fragment' => 'contact']) ?>"><?php echo $this->translate('Contact') ?></a></li>
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a class="navbar-link" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Register') ?></a></li>
-                            <li><a class="navbar-link" href="<?php echo $this->url('auth') ?>"><?php echo $this->translate('Login') ?></a></li>
-                        </ul>
+                        <?php if (isset($this->sessionContainer->member)):  ?>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navbar-link" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Register') ?></a></li>
+                                <li><a class="navbar-link" href="<?php echo $this->url('auth') ?>"><?php echo $this->translate('Login') ?></a></li>
+                            </ul>
+                        <?php else: ?>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navbar-link" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Register') ?></a></li>
+                                <li><a class="navbar-link" href="<?php echo $this->url('auth') ?>"><?php echo $this->translate('Login') ?></a></li>
+                            </ul>
+                        <?php endif; ?>
+                        
                     </div>
                 </div>
             </nav>

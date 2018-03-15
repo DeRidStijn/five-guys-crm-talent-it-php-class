@@ -3,6 +3,7 @@
 namespace Auth;
 
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -77,12 +78,17 @@ return [
                         ],
                     ],
                     'welcome' => [
-                        'type' => Literal::class,
+                        'type' => Segment::class,
                         'options' => [
-                            'route' => '/welcome',
+                            'route' => '/welcome[/:message]',
                             'defaults' => [
                                 'action' => 'welcome',
                             ],
+                        /*
+                            'constrains' => [
+                                'message' => '[a-zA-Z\s\!]+',
+                            ]
+                        */
                         ],
                     ],
                 ],

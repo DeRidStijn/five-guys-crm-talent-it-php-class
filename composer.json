@@ -27,7 +27,9 @@
         "zendframework/zend-session": "^2.7.1",
         "zendframework/zend-math": "^3.0",
         "guzzlehttp/guzzle": "^6.2",
-        "zendframework/zend-paginator": "^2.7"
+        "zendframework/zend-paginator": "^2.7",
+        "league/oauth2-server": "^7.0",
+        "zendframework/zend-authentication": "^2.5"
     },
     "autoload": {
         "psr-4": {

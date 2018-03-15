@@ -57,8 +57,15 @@ class AuthController extends AbstractActionController
 
     public function indexAction()
     {
+        // $this->identity
         if ($this->authService->hasIdentity()) {
-            return $this->redirect()->toRoute('auth/welcome');
+            $message = "variable to pass to view";
+            $this->placeholder('foo')->set($message);
+            $myVar = "some data I want to pass to my view";
+            $this->view->var = "some text";
+            return $this->redirect()->toRoute('auth/welcome', [
+                'message' => 'some data I want to pass to my view',
+            ]);
         }
         if (isset ($this->sessionContainer->accessCode)) {
             return $this->redirect()->toRoute('auth/process');
@@ -139,12 +146,22 @@ class AuthController extends AbstractActionController
         if (!$result->isValid()) {
             return $this->redirect()->toRoute('auth/problem');
         }
-
-        return $this->redirect()->toRoute('auth/welcome');
+        $varreken = "bedoelt ge varken?";
+            $message = "variable to pass to view";
+            $this->placeholder('foo')->set($message);
+        return $this->redirect()->toRoute('auth/welcome', [
+            'message' => 'some data I want to pass to my view',
+        ]);
     }
 
     public function welcomeAction()
     {
-        return new ViewModel();
+        $message = $this->params()->fromRoute('message', 'welcome');
+        return new ViewModel([message => $message]);
     }
 }
+
+/*
+viewhelper --> placeholder
+
+*/
