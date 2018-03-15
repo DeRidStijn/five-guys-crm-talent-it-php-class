@@ -153,7 +153,7 @@ class AuthController extends AbstractActionController
 
     public function welcomeAction()
     {
-        $message = $this->params()->fromRoute('message', 'welcome');
+        $message = $this->params()->fromRoute('message', 0);
         return new ViewModel([message => $message]);
     }
 }
