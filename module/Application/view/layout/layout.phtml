@@ -46,7 +46,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 
                             <?php if ($this->message = 1): ?>
-                                <li><a class="navbar-link" href="<?php echo $this->url('home') ?>"><?php echo 'signup for the beta program' ?></a></li>
+                            <li><a class="navbar-link smoothScroll" id="link-intro" href="<?php echo $this->url('home', [], ['fragment' => 'pricing']) ?>"><?php echo "sign up for beta program" ?></a></li>
                             <?php else: ?>
                                 <li><a class="navbar-link" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Register') ?></a></li>
                                 <li><a class="navbar-link" href="<?php echo $this->url('auth') ?>"><?php echo $this->translate('Login') ?></a></li>
