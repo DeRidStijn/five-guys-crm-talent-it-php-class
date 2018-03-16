@@ -30,7 +30,7 @@ interface ImageModelInterface
      * @param ImageInterface $image
      * @return ImageInterface
      */
-    public function saveImage(ImageInterface $image);
+    public function saveImage($contactId, ImageInterface $image);
 
     /**
      * Remove an Image from the backend

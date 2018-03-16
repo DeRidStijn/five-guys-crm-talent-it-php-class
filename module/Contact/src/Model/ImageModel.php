@@ -8,6 +8,7 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
 use Zend\Hydrator\HydratorInterface;
 
@@ -93,9 +94,23 @@ class ImageModel implements ImageModelInterface
     /**
      * @inheritDoc
      */
-    public function saveImage(ImageInterface $image)
+    public function saveImage($contactId, ImageInterface $image)
     {
-        // TODO: Implement saveImage() method.
+        $imageData = $this->hydrator->extract($image);
+        unset($imageData['contact_image_id']);
+
+        $insert = new Insert(self::TABLE_NAME);
+        $insert->values($imageData);
+
+        $sql = new Sql($this->db);
+        $stmt = $sql->prepareStatementForSqlObject($insert);
+        $result = $stmt->execute();
+
+        $imageId = $result->getGeneratedValue();
+        $imageData['contact_image_id'] = $imageId;
+        $newImageEntity = clone $this->imagePrototype;
+
+        return $this->hydrator->hydrate($imageData, $newImageEntity);
     }
 
     /**

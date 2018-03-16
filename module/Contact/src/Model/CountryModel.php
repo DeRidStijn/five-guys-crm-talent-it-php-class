@@ -82,6 +82,10 @@ class CountryModel implements CountryModelInterface
             throw new \DomainException('Cannot find countries');
         }
 
+        $countryRow = $result->current();
+        if (false === $countryRow) {
+            return $this->countryPrototype;
+        }
         return $this->hydrator->hydrate($result->current(), $this->countryPrototype);
     }
 

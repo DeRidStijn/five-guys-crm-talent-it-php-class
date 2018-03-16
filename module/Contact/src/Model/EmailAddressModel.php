@@ -9,6 +9,7 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Update;
+use Zend\Db\Sql\Insert;
 use Zend\Hydrator\HydratorInterface;
 
 class EmailAddressModel implements EmailAddressModelInterface
@@ -114,8 +115,22 @@ class EmailAddressModel implements EmailAddressModelInterface
         return $emailAddress;
     }
 
-    private function insertEmailAddress($contactId, EmailAddressInterface $emailAddress)
+    public function insertEmailAddress($contactId, EmailAddressInterface $emailAddress)
     {
-        return $emailAddress;
+        $emailData = $this->hydrator->extract($emailAddress);
+        unset($emailData['contact_email_id']);
+
+        $insert = new Insert(self::TABLE_NAME);
+        $insert->values($emailData);
+
+        $sql = new Sql($this->db);
+        $stmt = $sql->prepareStatementForSqlObject($insert);
+        $result = $stmt->execute();
+
+        $imageId = $result->getGeneratedValue();
+        $emailData['contact_email_id'] = $imageId;
+        $newEmailAddressEntity = clone $this->emailAddressPrototype;
+
+        return $this->hydrator->hydrate($emailData, $newEmailAddressEntity);
     }
 }

@@ -137,7 +137,7 @@ class MemberService
             $memberProfileData['emailAddress'],
             true
         );
-        $contactEmailEntity = $this->emailAddressModel->saveEmailAddress($contactEntity->getContactId(), $newContactEmail);
+        $contactEmailEntity = $this->emailAddressModel->insertEmailAddress($contactEntity->getContactId(), $newContactEmail);
 
         $contactAddressClass = get_class($this->addressPrototype);
         $newContactAddress = new $contactAddressClass(
@@ -163,7 +163,7 @@ class MemberService
             $memberProfileData['pictureUrl'],
             true
         );
-        $contactImageEntity = $this->imageModel->saveImage($newContactImage);
+        $contactImageEntity = $this->imageModel->saveImage($contactEntity->getContactId(), $newContactImage);
 
         return $memberEntity;
     }

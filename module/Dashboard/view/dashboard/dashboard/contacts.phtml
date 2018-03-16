@@ -31,10 +31,20 @@
                 </tr>
                 <?php foreach ($this->contacts as $contact): ?>
                     <tr>
-                        <td><img src="<?php echo $contact->getImages()->current()->getImageLink() ?>" width="24" height="24"></td>
+                        <td><?php
+                        $currentImages = $contact->getImages()->current();
+                        if(false !== $currentImages) {
+                            ?>
+                            <img src="<?php echo $currentImages->getImageLink() ?>" width="24" height="24">
+                            <?php
+                        }?></td>
                         <td><?php echo $this->escapeHtml($contact->getFirstName()) ?></td>
                         <td><?php echo $this->escapeHtml($contact->getLastName()) ?></td>
-                        <td><?php echo $this->escapeHtml($contact->getEmailAddresses()->current()->getEmailAddress()) ?></td>
+                        <td><?php
+                        $currentEmailAddresses = $contact->getEmailAddresses()->current();
+                        if(false !== $currentEmailAddresses) {
+                            echo $this->escapeHtml($currentEmailAddresses->getEmailAddress());
+                        }?></td>
                         <td><a href="<?php echo $this->url('dashboard/contacts/detail', ['contactId' => $contact->getContactId()]) ?>" title="<?php echo $this->translate('View details') ?>"><span class="glyphicon glyphicon-search"></span> <?php echo $this->translate('View details') ?></a></td>
                     </tr>
                 <?php endforeach ?>

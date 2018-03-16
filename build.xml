@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Five-Guys CRM" default="build">
+
+    <property file="build.properties" />
+    <property file="local.properties" override="true"/>
+
+    <target name="dbdeploy" description="Automated Database Migrations using DBDeploy">
+
+        <dbdeploy
+            url="${db.dsn}"
+            userid="${db.username}"
+            password="${db.password}"
+            dir="${project.basedir}/data/deploy/deltas"
+            outputfile="${project.basedir}/data/deploy/scripts/up.sql"
+            undooutputfile="${project.basedir}/data/deploy/scripts/down.sql"
+            deltaset="five-guys-crm"
+            appliedBy="DBDeploy"
+            checkall="false" />
+
+    </target>
+
+    <target name="dbdeploy-setup" description="Setting up DBDeploy Changelog table">
+
+        <pdosqlexec
+            url="${db.dsn}"
+            userid="${db.username}"
+            password="${db.password}"
+            src="${project.basedir}/data/db/dbdeploy.sql"
+            onerror="abort"
+            autocommit="true" />
+
+    </target>
+
+    <target name="db-up" description="Updating the database with latest changes" depends="dbdeploy">
+
+        <pdosqlexec
+            url="${db.dsn}"
+            userid="${db.username}"
+            password="${db.password}"
+            src="${project.basedir}/data/deploy/scripts/up.sql"
+            onerror="abort"
+            autocommit="true" />
+
+    </target>
+
+    <target name="db-down" description="Rolling back the database to last known state">
+
+        <pdosqlexec
+            url="${db.dsn}"
+            userid="${db.username}"
+            password="${db.password}"
+            src="${project.basedir}/data/deploy/scripts/down.sql"
+            onerror="abort"
+            autocommit="true" />
+
+    </target>
+
+    <target name="build" description="Default builder">
+
+    </target>
+
+</project>

@@ -53,4 +53,8 @@ class ContactController extends AbstractActionController
 
         return new ViewModel($viewModel);
     }
+    public function editAction()
+    {
+
+    }
 }

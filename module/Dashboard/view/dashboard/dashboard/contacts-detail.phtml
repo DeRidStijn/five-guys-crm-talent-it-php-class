@@ -26,7 +26,13 @@
                         <td colspan="2"><strong><?php echo $this->translate('Contact details') ?></strong></td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="text-center"><img src="<?php echo $this->escapeHtml($this->contact->getImages()->current()->getImageLink()) ?>"></td>
+                        <td colspan="2" class="text-center"><?php
+                        $currentImages = $contact->getImages()->current();
+                        if(false !== $currentImages) {
+                            ?>
+                            <img src="<?php echo $currentImages->getImageLink() ?>">
+                            <?php
+                        }?></td>
                     </tr>
                     <tr>
                         <th class="text-right"><?php echo $this->translate('First name') ?>:</th>
