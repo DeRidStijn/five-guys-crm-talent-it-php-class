@@ -145,9 +145,8 @@ class AuthController extends AbstractActionController
         if (!$result->isValid()) {
             return $this->redirect()->toRoute('auth/problem');
         }
-            $message = "variable to pass to view";
-            return $this->redirect()->toRoute('auth/welcome', [
-            'message' => 'some data I want to pass to my view',
+        return $this->redirect()->toRoute('auth/welcome', [
+            'message' => $this->authService->hasIdentity(),
         ]);
     }
 
